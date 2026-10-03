@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: isai-prints-backend
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/isaiprints}
+    username: ${DB_USERNAME:isaiprints}
+    password: ${DB_PASSWORD:isaiprints}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:placeholder-not-configured}
+            client-secret: ${GOOGLE_CLIENT_SECRET:placeholder-not-configured}
+            scope:
+              - openid
+              - email
+              - profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+
+server:
+  port: ${PORT:8080}
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  admin-emails:
+    - lvnikesh03@gmail.com
+    - nikeshrahul99@gmail.com
+  print-agent-token: ${PRINT_AGENT_TOKEN:prt_agent_sec_token_987654321}
+  jwt:
+    secret: ${JWT_SECRET:isai-prints-default-dev-secret-change-this-in-production-minimum-256-bits}
+    expiry-hours: ${JWT_EXPIRY_HOURS:24}
+  storage:
+    provider: ${STORAGE_PROVIDER:local}
+    endpoint: ${STORAGE_ENDPOINT:}
+    access-key: ${STORAGE_ACCESS_KEY:}
+    secret-key: ${STORAGE_SECRET_KEY:}
+    bucket: ${STORAGE_BUCKET:isai-prints-files}
+    local-upload-dir: ${LOCAL_UPLOAD_DIR:./uploads}
+  payment:
+    razorpay-key-id: ${RAZORPAY_KEY_ID:}
+    razorpay-key-secret: ${RAZORPAY_KEY_SECRET:}
+    razorpay-webhook-secret: ${RAZORPAY_WEBHOOK_SECRET:}
+  vapid:
+    public-key: ${VAPID_PUBLIC_KEY:}
+    private-key: ${VAPID_PRIVATE_KEY:}
+    subject: ${VAPID_SUBJECT:mailto:admin@isaiprints.com}
+
+logging:
+  level:
+    com.isaiprints: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN

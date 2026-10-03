@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:isaiprints;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: false
+
+app:
+  payment:
+    razorpay-key-id: rzp_test_TT6b0f7V3tDp1g
+    razorpay-key-secret: hEAG6nxwpPHkZ1OVtZR95tVS
+    razorpay-webhook-secret: "isai_webhook_secret_2024"

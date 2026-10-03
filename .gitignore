@@ -1,0 +1,36 @@
+# Maven build output
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Environment / secrets (never commit real keys)
+.env
+.env.local
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# Spring Boot local storage uploads
+uploads/
+local-storage/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
